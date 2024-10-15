@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class SpawnZombie : MonoBehaviour
 {
     [SerializeField] private List<GameObject> zombiePrefabs;
-    [SerializeField] private Transform spawnArea; // Transform объекта спавна
+    [SerializeField] private List<Transform> spawnAreas; // Transform объекта спавна
     [SerializeField] private Transform spawnTransform; // Для сохранения чистоты в редакторе Unity (на сцене)
 
     private int chanceSpawnZombieArmored;
@@ -75,15 +75,17 @@ public class SpawnZombie : MonoBehaviour
 
     private Vector3 GenerateSpawnPosition()
     {
+        int area = Random.Range(0, 2);
+        var spawnArea = spawnAreas[area];
         // Определяем границы spawnArea
         Vector3 spawnAreaSize = spawnArea.localScale;
 
         // Генерируем случайные координаты x и y внутри spawnArea, но за пределами камеры
         float x, y, z;
 
-        x = Random.Range(spawnArea.position.x - spawnAreaSize.x, spawnArea.position.x + spawnAreaSize.x / 5);
-        z = Random.Range(spawnArea.position.z - spawnAreaSize.y, spawnArea.position.z + spawnAreaSize.y / 5);
-        y = 1.03f;
+        x = Random.Range(spawnArea.position.x - spawnAreaSize.x, spawnArea.position.x + spawnAreaSize.x);
+        z = Random.Range(spawnArea.position.z - spawnAreaSize.y, spawnArea.position.z + spawnAreaSize.y);
+        y = 0.1f;
         return new Vector3(x, y, z);
     }
 }

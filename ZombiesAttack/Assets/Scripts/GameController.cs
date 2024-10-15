@@ -67,6 +67,6 @@ public class GameController : MonoBehaviour
 
     void SpawnZombie()
     {
-        spawnZombie.enabled = true;
+       spawnZombie.enabled = true;
     }
 }
