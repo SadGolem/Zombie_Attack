@@ -1,18 +1,33 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private Camera mainCamera;
+    void Awake()
     {
-        
+        mainCamera = Camera.main;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (Input.anyKey)
+        {
+            Ray mouseRay = mainCamera.ScreenPointToRay(Input.mousePosition);
+            Plane mousePlane = new Plane(mainCamera.transform.forward, transform.position);
+            float rayDistance;
+            if (mousePlane.Raycast(mouseRay, out rayDistance))
+            {
+                Vector3 mouseWorldPos = mouseRay.GetPoint(rayDistance);
+
+                // make the z component of mouseWorldPos the same as transform.position
+                mouseWorldPos.y = transform.position.y;
+
+                Vector3 awayFromMouseDir = transform.position - mouseWorldPos;
+
+                transform.rotation = Quaternion.LookRotation(awayFromMouseDir, Vector3.up);
+            }
+        }
     }
 }
+
+
