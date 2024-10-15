@@ -1,11 +1,23 @@
+using System;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     private Camera mainCamera;
+    [SerializeField] private GameController gameController;
+
     void Awake()
     {
         mainCamera = Camera.main;
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Zombie"))
+        {
+            gameController.StopGame();
+        }
     }
 
     void Update()
@@ -19,7 +31,6 @@ public class PlayerController : MonoBehaviour
             {
                 Vector3 mouseWorldPos = mouseRay.GetPoint(rayDistance);
 
-                // make the z component of mouseWorldPos the same as transform.position
                 mouseWorldPos.y = transform.position.y;
 
                 Vector3 awayFromMouseDir = transform.position - mouseWorldPos;
