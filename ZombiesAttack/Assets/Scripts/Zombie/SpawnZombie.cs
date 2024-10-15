@@ -17,6 +17,9 @@ public class SpawnZombie : MonoBehaviour
     {
         chanceSpawnZombieArmored = Parameters.chanceSpawnZombieArmored;
         chanceSpawnZombieVeteran = Parameters.chanceSpawnZombieVeteran;
+        spawnInterval = Parameters.spawnInterval;
+        minSpawnInterval = Parameters.minSpawnInterval;
+
         StartCoroutine(SpawnZombies());
         StartCoroutine(SpawnIntervalChange());
     }
@@ -77,10 +80,9 @@ public class SpawnZombie : MonoBehaviour
     {
         int area = Random.Range(0, 2);
         var spawnArea = spawnAreas[area];
-        // Определяем границы spawnArea
+
         Vector3 spawnAreaSize = spawnArea.localScale;
 
-        // Генерируем случайные координаты x и y внутри spawnArea, но за пределами камеры
         float x, y, z;
 
         x = Random.Range(spawnArea.position.x - spawnAreaSize.x, spawnArea.position.x + spawnAreaSize.x);

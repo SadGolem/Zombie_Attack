@@ -4,7 +4,7 @@ using UnityEngine;
 public class Gun : MonoBehaviour
 {
     private float fireRate; // Скорострельность (выстрелов в секунду)
-    public GameObject bulletPrefab;      // Спрайт пули
+    public GameObject bulletPrefab;   
     [SerializeField] Transform bullets;
     private void Start()
     {
@@ -14,13 +14,12 @@ public class Gun : MonoBehaviour
 
     public void Shoot()
     {
-        // Создаем пулю
         Instantiate(bulletPrefab, transform.position, transform.rotation, bullets);
     }
 
     private IEnumerator Shooting()
     {
-        while (true) // Постоянно выполняем корутину
+        while (true)
         {
             Shoot();
             yield return new WaitForSeconds(fireRate);

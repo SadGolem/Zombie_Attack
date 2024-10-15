@@ -36,9 +36,7 @@ public class Zombie : MonoBehaviour
         // Разворот в сторону движения
         if (direction != Vector3.zero)
         {
-            // Получение угла поворота
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
-            // Поворот объекта
             transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
         }
     }
